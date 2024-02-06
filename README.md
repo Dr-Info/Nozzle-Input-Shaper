@@ -101,7 +101,8 @@ probe_points:
 
 ## Updating
 
-1. Update all software
+### Klipper
+1. Update all software in UI Dashboard
 2. cd to the Klipper directory 
 ```bash
 cd ~/klipper
