@@ -17,18 +17,19 @@ cd ~/klipper
 ```
 3. Run make clean 
 ```bash
-make clean KCONFIG_CONFIG=config.nis
+make clean
 ```
 4. Open menuconfig 
 ```bash
-make menuconfig KCONFIG_CONFIG=config.nis
+make menuconfig
 ```
 5. Set the following settings
-   - [_] Enable extra low-level configuration options
+   - [*] Enable extra low-level configuration options
    - Micro-controller Architecture (STMicroelectronics STM32)
    - Processor model (STM32F042)
    - Bootloader offset (No bootloader)
-   - Communication interface (USB (on PA11/PA12))
+   - Clock Reference (Internal clock)
+   - Communication interface (USB (on PA09/PA10))
    - Optional features (to reduce code size) --->
        - [*] Support GPIO "bit-banging" devices
        - [_] Support LCD devices
@@ -36,14 +37,11 @@ make menuconfig KCONFIG_CONFIG=config.nis
        - [_] Support lis2dw 3-axis accelerometer
        - [_] Support software based I2C "bit-banging"
        - [*] Support software based SPI "bit-banging"
-       - 
-![image](https://github.com/FYSETC/Nozzle-Input-Shaper/assets/5789676/712d4b83-5915-4db0-8082-0c71fb7a7865)
-![image](https://github.com/FYSETC/Nozzle-Input-Shaper/assets/5789676/5b5e816c-33a7-47c1-8bda-40ca24a3e27d)
 
-6. Quit (press q) and save the configuration
+6. To quit (press Q) and to save the configuration (press Y)
 7. Run Make to compile the firmware
 ```bash
-make KCONFIG_CONFIG=config.nis -j4
+make
 ```
 #### Flash Klipper over USB
 1. Ensure that you are still connected via SSH, if not, reconnect to your Klipper host via SSH. 
@@ -71,7 +69,7 @@ make flash FLASH_DEVICE=0483:df11
 6. After it has finished flashing, run the following command again. As long as the device is not showing it is in DFU Mode like in step 3, you are good to move onto the next step.
 7. Run the following command to find the devices serial port name
 ```bash
-ls /dev/serial/by-id/*
+ls /dev/serial/by-id/
 ```
 It should return a device beginning with `/dev/serial/by-id/usb-Klipper_stm32f042x6` take a note of this, you will need it later on. 
 
@@ -84,7 +82,7 @@ It should return a device beginning with `/dev/serial/by-id/usb-Klipper_stm32f04
 ```yaml
 [mcu NIS]
 # Obtain definition by "ls -l /dev/serial/by-id/" then unplug to verify
-serial: /dev/serial/by-id/usb-Klipper_stm32f042x6_40004A000551303439343636-if00
+serial: /dev/serial/by-id/<your serial id>
 
 [adxl345]
 cs_pin: NIS:PA4
@@ -95,10 +93,49 @@ spi_software_miso_pin: NIS:PA6
 [resonance_tester]
 accel_chip: adxl345
 probe_points:
-    100,100,20 # an example - set this to the centre of your BED.
+    100,100,20 # an example - set this to the center of your BED.
 ```
 4. Save your config and restart firmware
 5. Follow the [Klipper documentation](https://www.klipper3d.org/Measuring_Resonances.html)  on how to Measure Resonance on Klipper.
 6. Once your results are in, remove the Nozzle Input Shaper from the Nozzle and comment out or remove the above config from your Printer.cfg
 
+### Updating
 
+1. Update all software
+2. cd to the Klipper directory 
+```bash
+cd ~/klipper
+```
+3. Run make clean 
+```bash
+make clean
+```
+4. Open menuconfig 
+```bash
+make menuconfig
+```
+5. Set the following settings
+   - [*] Enable extra low-level configuration options
+   - Micro-controller Architecture (STMicroelectronics STM32)
+   - Processor model (STM32F042)
+   - Bootloader offset (No bootloader)
+   - Clock Reference (Internal clock)
+   - Communication interface (USB (on PA09/PA10))
+   - Optional features (to reduce code size) --->
+       - [*] Support GPIO "bit-banging" devices
+       - [_] Support LCD devices
+       - [*] Support external sensor devices
+       - [_] Support lis2dw 3-axis accelerometer
+       - [_] Support software based I2C "bit-banging"
+       - [*] Support software based SPI "bit-banging"
+6. To quit (press Q) and to save the configuration (press Y)
+7. Flash with command below (INPUT YOUR ID ACCORDINGLY) You can get it with ```bash
+ls /dev/serial/by-id/
+```
+
+```bash
+sudo service klipper stop
+make flash FLASH_DEVICE=/dev/serial/by-id/<your id>
+sudo service klipper start
+```
+8. Restart, klipper should show most current version in UI Dashboard.
