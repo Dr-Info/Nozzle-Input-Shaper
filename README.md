@@ -37,8 +37,10 @@ make menuconfig
        - [_] Support lis2dw 3-axis accelerometer
        - [_] Support software based I2C "bit-banging"
        - [*] Support software based SPI "bit-banging"
-![menuconfig](3DImages/NIS_menuconfig.JPG)
-![menuconfig](3DImages/NIS_optional_features.JPG)
+
+![menuconfig](3D/NIS_menuconfig.JPG)
+![menuconfig](3D/NIS_optional_features.JPG)
+
 6. To quit (press Q) and to save the configuration (press Y)
 7. Run Make to compile the firmware
 ```bash
