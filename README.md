@@ -144,4 +144,4 @@ sudo service klipper stop
 make flash FLASH_DEVICE=/dev/serial/by-id/<your id>
 sudo service klipper start
 ```
-8. Restart, klipper should show most current version in UI Dashboard.
+8. On restart, klipper should show most current version in UI Dashboard.
