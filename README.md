@@ -130,9 +130,7 @@ make menuconfig
        - [_] Support software based I2C "bit-banging"
        - [*] Support software based SPI "bit-banging"
 6. To quit (press Q) and to save the configuration (press Y)
-7. Flash with command below (INPUT YOUR ID ACCORDINGLY) You can get it with ```bash
-ls /dev/serial/by-id/
-```
+7. Flash with command below (INPUT YOUR ID ACCORDINGLY). You can get it with ```ls /dev/serial/by-id/```
 
 ```bash
 sudo service klipper stop
