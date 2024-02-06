@@ -99,7 +99,7 @@ probe_points:
 5. Follow the [Klipper documentation](https://www.klipper3d.org/Measuring_Resonances.html)  on how to Measure Resonance on Klipper.
 6. Once your results are in, remove the Nozzle Input Shaper from the Nozzle and comment out or remove the above config from your Printer.cfg
 
-### Updating
+## Updating
 
 1. Update all software
 2. cd to the Klipper directory 
