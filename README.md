@@ -53,7 +53,7 @@ make
 ```bash
 lsusb
 ```
-   It should produce a result showing a STM Device in DFU Mode
+4. It should produce a result showing a STM Device in DFU Mode
    
    Example
    
